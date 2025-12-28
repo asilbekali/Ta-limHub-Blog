@@ -48,15 +48,17 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable}`}
     >
       <body>
-        <InitColorSchemeScript attribute="class" />
-        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Navbar />
-            <Box minHeight={"100vh"}>{children}</Box>
-            <Footer />
-          </ThemeProvider>
-        </AppRouterCacheProvider>
+        <div className="bg-gray-800">
+          <InitColorSchemeScript attribute="class" />
+          <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Navbar />
+              <Box minHeight={"100vh"}>{children}</Box>
+              <Footer />
+            </ThemeProvider>
+          </AppRouterCacheProvider>
+        </div>
       </body>
     </html>
   );
