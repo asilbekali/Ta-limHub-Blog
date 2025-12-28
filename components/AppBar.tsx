@@ -12,6 +12,9 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 
+// Sizning Contact button component
+import MenuPopupState from "@/components/dashbutton";
+
 const pages = ["Home", "Blog", "Contact", "About us"];
 
 export default function ResponsiveAppBar() {
@@ -56,21 +59,16 @@ export default function ResponsiveAppBar() {
           top: show ? 0 : "-100px",
           transition:
             "top 0.3s ease, backdrop-filter 0.3s ease, width 0.3s ease, left 0.3s ease, right 0.3s ease, border-radius 0.3s ease, background 0.3s ease",
-
-          // 🟢 SOFT BLACK + WHITE TOUCH
           background: isScrolled ? "rgba(28,28,28,0.82)" : "rgba(20,20,20,0.9)",
-
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
           borderBottom: "1px solid rgba(255,255,255,0.15)",
           zIndex: 9999,
-
           width: isScrolled ? "calc(100% - 60px)" : "100%",
           left: isScrolled ? "30px" : "0",
           right: isScrolled ? "30px" : "0",
           borderRadius: isScrolled ? "16px" : "0",
           mt: isScrolled ? 2 : 0,
-
           "&:hover": {
             background: "rgba(40,40,40,0.9)",
           },
@@ -109,9 +107,10 @@ export default function ResponsiveAppBar() {
               />
               <Typography
                 variant="h6"
+                fontFamily={"Roboto Mono, monospace"}
                 sx={{
-                  fontWeight: 700,
-                  letterSpacing: ".1rem",
+                  fontWeight: 800,
+                  letterSpacing: ".2rem",
                   color: "rgba(255,255,255,0.95)",
                 }}
               >
@@ -121,34 +120,38 @@ export default function ResponsiveAppBar() {
 
             {/* Desktop Menu */}
             <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
-              {pages.map((page) => (
-                <Link
-                  key={page}
-                  href={
-                    page === "Home"
-                      ? "/"
-                      : page === "Blog"
-                      ? "/blog"
-                      : `/${page.toLowerCase().replace(" ", "")}`
-                  }
-                  style={{ textDecoration: "none" }}
-                >
-                  <Button
-                    sx={{
-                      color: "rgba(255,255,255,0.85)",
-                      fontSize: isScrolled ? "0.9rem" : "1rem",
-                      px: 2,
-                      "&:hover": {
-                        color: "white",
-                        backgroundColor: "rgba(255,255,255,0.12)",
-                        borderRadius: "8px",
-                      },
-                    }}
+              {pages.map((page) =>
+                page === "Contact" ? (
+                  <MenuPopupState key={page} /> // Contact button
+                ) : (
+                  <Link
+                    key={page}
+                    href={
+                      page === "Home"
+                        ? "/"
+                        : page === "Blog"
+                        ? "/blog"
+                        : `/${page.toLowerCase().replace(" ", "")}`
+                    }
+                    style={{ textDecoration: "none" }}
                   >
-                    {page}
-                  </Button>
-                </Link>
-              ))}
+                    <Button
+                      sx={{
+                        color: "rgba(255,255,255,0.85)",
+                        fontSize: isScrolled ? "0.9rem" : "1rem",
+                        px: 2,
+                        "&:hover": {
+                          color: "white",
+                          backgroundColor: "rgba(255,255,255,0.12)",
+                          borderRadius: "8px",
+                        },
+                      }}
+                    >
+                      {page}
+                    </Button>
+                  </Link>
+                )
+              )}
             </Box>
 
             {/* Mobile Menu */}
@@ -174,35 +177,39 @@ export default function ResponsiveAppBar() {
                   },
                 }}
               >
-                {pages.map((page) => (
-                  <MenuItem
-                    key={page}
-                    onClick={handleCloseNavMenu}
-                    sx={{
-                      "&:hover": {
-                        backgroundColor: "rgba(255,255,255,0.1)",
-                      },
-                    }}
-                  >
-                    <Link
-                      href={
-                        page === "Home"
-                          ? "/"
-                          : page === "Blog"
-                          ? "/blog"
-                          : `/${page.toLowerCase().replace(" ", "")}`
-                      }
-                      style={{
-                        color: "rgba(255,255,255,0.9)",
-                        textDecoration: "none",
-                        width: "100%",
-                        textAlign: "center",
+                {pages.map((page) =>
+                  page === "Contact" ? (
+                    <MenuItem key={page}>
+                      <MenuPopupState /> {/* Mobile menu Contact */}
+                    </MenuItem>
+                  ) : (
+                    <MenuItem
+                      key={page}
+                      onClick={handleCloseNavMenu}
+                      sx={{
+                        "&:hover": { backgroundColor: "rgba(255,255,255,0.1)" },
                       }}
                     >
-                      {page}
-                    </Link>
-                  </MenuItem>
-                ))}
+                      <Link
+                        href={
+                          page === "Home"
+                            ? "/"
+                            : page === "Blog"
+                            ? "/blog"
+                            : `/${page.toLowerCase().replace(" ", "")}`
+                        }
+                        style={{
+                          color: "rgba(255,255,255,0.9)",
+                          textDecoration: "none",
+                          width: "100%",
+                          textAlign: "center",
+                        }}
+                      >
+                        {page}
+                      </Link>
+                    </MenuItem>
+                  )
+                )}
               </Menu>
             </Box>
           </Toolbar>
