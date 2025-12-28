@@ -10,7 +10,6 @@ import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 
 import theme from "./theme";
 import { Footer, Navbar } from "@/components";
-import ResponsiveAppBar from "@/components/AppBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +30,10 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: "TH Blog",
   description: "A blog about Ta'limHub projects and updates.",
+  icons: {
+    icon: "/images/logo.svg",
+    apple: "/images/logo.svg",
+  },
 };
 
 export default function RootLayout({
