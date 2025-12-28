@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto } from "next/font/google";
+import { Box } from "@mui/material";
 import "./globals.css";
 
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
@@ -8,6 +9,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 
 import theme from "./theme";
+import { Footer, Navbar } from "@/components";
+import ResponsiveAppBar from "@/components/AppBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,7 +49,9 @@ export default function RootLayout({
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            {children}
+            <Navbar />
+            <Box minHeight={"100vh"}>{children}</Box>
+            <Footer />
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

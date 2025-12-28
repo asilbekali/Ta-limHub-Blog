@@ -3,10 +3,12 @@ import React from "react";
 
 const page = () => {
   return (
-    <div>
-      <p>Welcome to TH's Blog</p>
-      <Button variant="contained">salom</Button>
-    </div>
+    <>
+      <div>
+        <p>Home Page</p>
+        <Button variant="contained">MUI Button</Button>
+      </div>
+    </>
   );
 };
 
