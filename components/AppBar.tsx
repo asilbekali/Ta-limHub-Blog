@@ -15,7 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 // Sizning Contact button component
 import MenuPopupState from "@/components/dashbutton";
 
-const pages = ["Home", "Blog", "Contact", "About us"];
+const pages = ["Blog", "Contact", "About us"];
 
 export default function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -130,7 +130,7 @@ export default function ResponsiveAppBar() {
                       page === "Home"
                         ? "/"
                         : page === "Blog"
-                        ? "/blog"
+                        ? "/"
                         : `/${page.toLowerCase().replace(" ", "")}`
                     }
                     style={{ textDecoration: "none" }}
@@ -195,7 +195,7 @@ export default function ResponsiveAppBar() {
                           page === "Home"
                             ? "/"
                             : page === "Blog"
-                            ? "/blog"
+                            ? "/"
                             : `/${page.toLowerCase().replace(" ", "")}`
                         }
                         style={{
