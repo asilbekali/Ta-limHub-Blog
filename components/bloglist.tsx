@@ -21,7 +21,7 @@ export default function BlogList({ posts }: { posts: Post[] }) {
       <Grid container spacing={6}>
         {posts.slice(start, end).map((post) => (
           <Grid key={post.id} size={{ xs: 12, sm: 6, md: 4 }}>
-            <PostCard post={post} />
+            <PostCard key={post.id} post={post} />
           </Grid>
         ))}
       </Grid>
@@ -35,29 +35,29 @@ export default function BlogList({ posts }: { posts: Post[] }) {
               page={page}
               onChange={(_, value) => {
                 setPage(value);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }}
               color="primary"
               size="large"
               sx={{
-                '& .MuiPaginationItem-root': {
-                  color: 'white',
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  margin: '0 4px',
-                  minWidth: '40px',
-                  height: '40px',
-                  '&:hover': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                "& .MuiPaginationItem-root": {
+                  color: "white",
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  margin: "0 4px",
+                  minWidth: "40px",
+                  height: "40px",
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 255, 255, 0.2)",
                   },
                 },
-                '& .MuiPaginationItem-root.Mui-selected': {
-                  backgroundColor: 'rgba(139, 92, 246, 0.7)',
-                  borderColor: 'rgba(139, 92, 246, 0.9)',
-                  color: 'white',
-                  fontWeight: 'bold',
-                  '&:hover': {
-                    backgroundColor: 'rgba(139, 92, 246, 0.9)',
+                "& .MuiPaginationItem-root.Mui-selected": {
+                  backgroundColor: "rgba(139, 92, 246, 0.7)",
+                  borderColor: "rgba(139, 92, 246, 0.9)",
+                  color: "white",
+                  fontWeight: "bold",
+                  "&:hover": {
+                    backgroundColor: "rgba(139, 92, 246, 0.9)",
                   },
                 },
               }}
