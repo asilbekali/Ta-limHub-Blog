@@ -1,5 +1,4 @@
-import { Box } from '@mui/material'
-import React from 'react'
+"use client";
 import ResponsiveAppBar from '../AppBar'
 
 const Navbar = () => {
