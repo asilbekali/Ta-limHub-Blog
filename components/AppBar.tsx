@@ -263,6 +263,7 @@ export default function ResponsiveAppBar() {
                     {page === "Contact" ? (
                       <Box sx={{ width: "100%" }}>
                         <MenuItem
+                        key={page}
                           onClick={handleCloseNavMenu}
                           sx={{ p: 0, width: "100%" }}
                         >
