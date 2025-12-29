@@ -72,9 +72,20 @@ export default function ResponsiveAppBar() {
           "&:hover": {
             background: "rgba(40,40,40,0.9)",
           },
+          // Mobil uchun max width
+          "@media (max-width: 600px)": {
+            width: isScrolled ? "calc(100% - 32px)" : "100%",
+            left: isScrolled ? "16px" : "0",
+            right: isScrolled ? "16px" : "0",
+          },
         }}
       >
-        <Container maxWidth="xl">
+        <Container
+          maxWidth="xl"
+          sx={{
+            px: { xs: 2, sm: 3, md: 4 }, // Mobilda padding kamroq
+          }}
+        >
           <Toolbar
             disableGutters
             sx={{
@@ -83,17 +94,26 @@ export default function ResponsiveAppBar() {
               justifyContent: "space-between",
               alignItems: "center",
               transition: "min-height 0.3s ease",
+              // Mobil uchun minimal balandlik
+              "@media (max-width: 600px)": {
+                minHeight: isScrolled ? 56 : 64,
+              },
             }}
             onMouseEnter={() => setIsFocus(true)}
             onMouseLeave={() => setIsFocus(false)}
           >
-            {/* Logo */}
+            {/* Logo - ENDI HECH QACHON QISQARMASLIGI KERAK */}
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
+                flexShrink: 0, // HECH QACHON QISQARMASLIK UCHUN
                 transform: isScrolled ? "scale(0.95)" : "scale(1)",
                 transition: "transform 0.3s ease",
+                // Mobilda logo va text joylashuvi
+                "@media (max-width: 600px)": {
+                  transform: isScrolled ? "scale(0.9)" : "scale(0.95)",
+                },
               }}
             >
               <img
@@ -102,7 +122,8 @@ export default function ResponsiveAppBar() {
                 style={{
                   width: isScrolled ? 35 : 40,
                   height: isScrolled ? 35 : 40,
-                  marginRight: 10,
+                  marginRight: 8,
+                  flexShrink: 0, // Rasm ham qisqarmasin
                 }}
               />
               <Typography
@@ -112,6 +133,23 @@ export default function ResponsiveAppBar() {
                   fontWeight: 800,
                   letterSpacing: ".2rem",
                   color: "rgba(255,255,255,0.95)",
+                  fontSize: {
+                    xs: "1.1rem", // Kichik ekranlarda ham to'liq ko'rinsin
+                    sm: "1.25rem",
+                    md: "1.5rem",
+                  },
+                  whiteSpace: "nowrap",
+                  flexShrink: 0, // MATN HECH QACHON QISQARMASIN
+                  // Mobil uchun letter-spacing kamaytirish
+                  "@media (max-width: 600px)": {
+                    letterSpacing: ".15rem",
+                    fontSize: isScrolled ? "1rem" : "1.1rem",
+                  },
+                  // Juda kichik ekranlar uchun
+                  "@media (max-width: 400px)": {
+                    fontSize: isScrolled ? "0.95rem" : "1.05rem",
+                    letterSpacing: ".1rem",
+                  },
                 }}
               >
                 Ta'limHub-Blog
@@ -119,10 +157,18 @@ export default function ResponsiveAppBar() {
             </Box>
 
             {/* Desktop Menu */}
-            <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
+            <Box
+              sx={{
+                display: { xs: "none", md: "flex" },
+                gap: 2,
+                flexShrink: 0,
+              }}
+            >
               {pages.map((page) =>
                 page === "Contact" ? (
-                  <MenuPopupState key={page} /> // Contact button
+                  <div className="m-auto">
+                    <MenuPopupState key={page} />{" "}
+                  </div>
                 ) : (
                   <Link
                     key={page}
@@ -154,10 +200,26 @@ export default function ResponsiveAppBar() {
               )}
             </Box>
 
-            {/* Mobile Menu */}
-            <Box sx={{ display: { xs: "flex", md: "none" } }}>
-              <IconButton onClick={handleOpenNavMenu}>
-                <MenuIcon sx={{ color: "rgba(255,255,255,0.9)" }} />
+            {/* Mobile Menu Button - FAKAT TUGMA */}
+            <Box
+              sx={{
+                display: { xs: "flex", md: "none" },
+                flexShrink: 0, // Tugma ham qisqarmasin
+                ml: 1, // Logodan biroz uzoqlashtirish
+              }}
+            >
+              <IconButton
+                onClick={handleOpenNavMenu}
+                sx={{
+                  padding: 1, // Tugma hajmini kichraytirish
+                }}
+              >
+                <MenuIcon
+                  sx={{
+                    color: "rgba(255,255,255,0.9)",
+                    fontSize: isScrolled ? "1.5rem" : "1.75rem",
+                  }}
+                />
               </IconButton>
 
               <Menu
@@ -169,27 +231,47 @@ export default function ResponsiveAppBar() {
                 sx={{
                   mt: 1,
                   "& .MuiPaper-root": {
-                    backgroundColor: "rgba(25,25,25,0.9)",
-                    backdropFilter: "blur(18px)",
+                    backgroundColor: "rgba(25,25,25,0.95)",
+                    backdropFilter: "blur(20px)",
                     border: "1px solid rgba(255,255,255,0.15)",
                     borderRadius: "12px",
                     minWidth: 200,
+                    maxWidth: 280,
+                    py: 0.5,
+                  },
+                  "& .MuiList-root": {
+                    py: 0,
                   },
                 }}
               >
-                {pages.map((page) =>
-                  page === "Contact" ? (
-                    <MenuItem key={page}>
-                      <MenuPopupState /> {/* Mobile menu Contact */}
-                    </MenuItem>
-                  ) : (
-                    <MenuItem
-                      key={page}
-                      onClick={handleCloseNavMenu}
-                      sx={{
-                        "&:hover": { backgroundColor: "rgba(255,255,255,0.1)" },
-                      }}
-                    >
+                {pages.map((page) => (
+                  <MenuItem
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                      py: 1.5,
+                      px: 2,
+                      minHeight: "48px",
+                      "&:hover": {
+                        backgroundColor: "rgba(255,255,255,0.12)",
+                      },
+                      "&:not(:last-child)": {
+                        borderBottom: "1px solid rgba(255,255,255,0.08)",
+                      },
+                    }}
+                  >
+                    {page === "Contact" ? (
+                      <Box sx={{ width: "100%" }}>
+                        <MenuItem
+                          onClick={handleCloseNavMenu}
+                          sx={{ p: 0, width: "100%" }}
+                        >
+                          <div className="m-auto">
+                            <MenuPopupState />
+                          </div>
+                        </MenuItem>
+                      </Box>
+                    ) : (
                       <Link
                         href={
                           page === "Home"
@@ -199,17 +281,21 @@ export default function ResponsiveAppBar() {
                             : `/${page.toLowerCase().replace(" ", "")}`
                         }
                         style={{
-                          color: "rgba(255,255,255,0.9)",
+                          color: "rgba(255,255,255,0.95)",
                           textDecoration: "none",
                           width: "100%",
                           textAlign: "center",
+                          fontSize: "1rem",
+                          fontWeight: 500,
+                          display: "block",
+                          padding: "8px 0",
                         }}
                       >
                         {page}
                       </Link>
-                    </MenuItem>
-                  )
-                )}
+                    )}
+                  </MenuItem>
+                ))}
               </Menu>
             </Box>
           </Toolbar>
@@ -217,7 +303,14 @@ export default function ResponsiveAppBar() {
       </AppBar>
 
       {/* Offset */}
-      <Box sx={{ height: isScrolled ? 80 : 90 }} />
+      <Box
+        sx={{
+          height: isScrolled ? 80 : 90,
+          "@media (max-width: 600px)": {
+            height: isScrolled ? 70 : 80,
+          },
+        }}
+      />
     </>
   );
 }
